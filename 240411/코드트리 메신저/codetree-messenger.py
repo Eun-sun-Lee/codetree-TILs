@@ -26,8 +26,8 @@ def changeAuthority(idx, power):
 #400
 def changeParent(idx1, idx2):
     parent[idx1], parent[idx2] = parent[idx2], parent[idx1]
-    if idx1 == 8:
-        print(parent, authority)
+    # if idx1 == 8:
+    #     print(parent, authority)
     # authority[idx1], authority[idx2] = authority[idx2], authority[idx1]
 
 #500
@@ -37,7 +37,8 @@ def receiveAlram(idx, height):
     # print("height: ", height)
     for i in range(idx + 1, len(parent)):
         if parent[i] == idx and i not in powerOff and height <= authority[i]:
-            # print(i, authority[i], height)
+            if N == 9:
+                print(i, authority[i], height)
             count += receiveAlram(i, height + 1) + 1
     return count
 
