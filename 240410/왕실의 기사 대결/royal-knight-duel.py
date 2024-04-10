@@ -37,6 +37,7 @@ def moveKnight(index, dir):
 
     while queue:
         x = queue.popleft()
+        visited[x] = True
 
         ny[x] += dy[dir]
         nx[x] += dx[dir]
