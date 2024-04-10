@@ -60,7 +60,7 @@ for _ in range(Q):
     elif comm == 300:
         changeAuthority(l[0], l[1])
     elif comm == 400:
-        changeParent(7, 8)
+        changeParent(l[0], l[1])
     elif comm == 500:
         height = 1
         alarm = receiveAlram(l[0], height)
