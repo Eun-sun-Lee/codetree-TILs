@@ -29,7 +29,6 @@ def changeParent(idx1, idx2):
     parent[idx1] = parent[idx2]
     parent[idx2] = tmp
 
-
 #500
 def receiveAlram(idx, height):
     count = 0
