@@ -26,8 +26,6 @@ def changeAuthority(idx, power):
 #400
 def changeParent(idx1, idx2):
     parent[idx1], parent[idx2] = parent[idx2], parent[idx1]
-    # if idx1 == 8:
-    #     print(parent, authority)
     # authority[idx1], authority[idx2] = authority[idx2], authority[idx1]
 
 #500
@@ -36,10 +34,13 @@ def receiveAlram(idx, height):
     # height += 1
     # print("height: ", height)
     for i in range(idx + 1, len(parent)):
-        if parent[i] == idx and i not in powerOff and height <= authority[i]:
-            if N == 9:
-                print(i, authority[i], height)
-            count += receiveAlram(i, height + 1) + 1
+        if parent[i] == idx and i not in powerOff:
+            # if N == 9:
+            #     print(i, authority[i], height)
+            if height <= authority[i]:
+                count += receiveAlram(i, height + 1) + 1
+            else:
+                count += receiveAlram(i, height + 1) 
     return count
 
 def pathCompression(i):
