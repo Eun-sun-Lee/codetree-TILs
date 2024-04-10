@@ -37,6 +37,9 @@ def moveKnight(index, dir):
 
     while queue:
         x = queue.popleft()
+
+        if k[x] <= 0: return False, ny, nx, nk
+
         visited[x] = True
 
         ny[x] += dy[dir]
@@ -50,8 +53,8 @@ def moveKnight(index, dir):
                 elif graph[i][j] == 1 and x != index: nk[x] -= 1  # 함정
         for i in range(N):
             if visited[i] == True or nk[i] <= 0: continue
-            if ny[x] + h[x] < r[i]-1 or r[i] + h[i]-1 < ny[x]: continue  # 겹치는지 확인
-            if nx[x] + w[x] < c[i]-1 or c[i] + w[i]-1 < nx[x]: continue  # 겹치는지 확인
+            if ny[x] + h[x] < r[i] or r[i] + h[i] < ny[x]: continue  # 겹치는지 확인
+            if nx[x] + w[x] < c[i] or c[i] + w[i] < nx[x]: continue  # 겹치는지 확인
 
             visited[i] = True
             queue.append(i)
