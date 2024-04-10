@@ -31,8 +31,10 @@ def changeParent(idx1, idx2):
 #500
 def receiveAlram(idx, height):
     count = 0
-    # height += 1
-    # print("height: ", height)
+    
+    if N == 10 and Q == 10:
+        print(parent, authority)
+
     for i in range(idx + 1, len(parent)):
         if parent[i] == idx and i not in powerOff:
             if N == 10 and Q == 10:
