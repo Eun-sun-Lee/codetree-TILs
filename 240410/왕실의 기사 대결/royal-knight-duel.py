@@ -31,7 +31,6 @@ def moveKnight(index, dir):
     queue.append(index)
     visited[index] = True
 
-    # 이동에 대한 복사본 생성
     ny = copy.deepcopy(r)
     nx = copy.deepcopy(c)
     nk = copy.deepcopy(k)
@@ -49,8 +48,7 @@ def moveKnight(index, dir):
                 if 0 > i or 0 > j or i >= L or j >= L: return False, ny, nx, nk  # 체스판 밖 -> 벽
 
                 if graph[i][j] == 2: return False, ny, nx, nk  # 벽
-                elif graph[i][j] == 1 and x != index: nk[x] -= 1  # 함정 감지 및 체력 감소
-
+                elif graph[i][j] == 1 and x != index: nk[x] -= 1  # 함정
         for i in range(N):
             if visited[i] == True or nk[i] <= 0: continue
             if ny[x] + h[x] < r[i] or r[i] + h[i] < ny[x]: continue  # 겹치는지 확인
@@ -58,7 +56,6 @@ def moveKnight(index, dir):
 
             visited[i] = True
             queue.append(i)
-
     return True, ny, nx, nk
 
 for _ in range(Q):
