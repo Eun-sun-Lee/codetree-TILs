@@ -1,4 +1,5 @@
 import sys
+import copy
 from collections import deque
 
 dy = [-1, 0, 1, 0]
@@ -23,46 +24,56 @@ for i in range(N):
     r[i] -= 1
     c[i] -= 1
 
-originalK = k[:]  # 깊은 복사가 아닌 얕은 복사를 사용합니다.
+originalK = copy.deepcopy(k)
 
 def moveKnight(index, dir):
     queue = deque()
     queue.append(index)
     visited[index] = True
 
+    # 이동에 대한 복사본 생성
+    ny = copy.deepcopy(r)
+    nx = copy.deepcopy(c)
+    nk = copy.deepcopy(k)
+
     while queue:
         x = queue.popleft()
 
         visited[x] = True
 
-        ny = r[x] + dy[dir]
-        nx = c[x] + dx[dir]
+        ny[x] += dy[dir]
+        nx[x] += dx[dir]
 
-        for i in range(ny, ny + h[x]):
-            for j in range(nx, nx + w[x]):
-                if 0 > i or 0 > j or i >= L or j >= L: return False, [], [], []  # 체스판 밖 -> 벽
+        for i in range(ny[x], ny[x] + h[x]):
+            for j in range(nx[x], nx[x] + w[x]):
+                if 0 > i or 0 > j or i >= L or j >= L: return False, ny, nx, nk  # 체스판 밖 -> 벽
 
-                if graph[i][j] == 2: return False, [], [], []  # 벽
-                elif graph[i][j] == 1 and x != index: k[x] -= 1  # 함정
+                if graph[i][j] == 2: return False, ny, nx, nk  # 벽
+                elif graph[i][j] == 1 and x != index: nk[x] -= 1  # 함정 감지 및 체력 감소
 
         for i in range(N):
-            if visited[i] == True or k[i] <= 0: continue
-            if ny + h[x] <= r[i] or r[i] + h[i] <= ny: continue  # 겹치는지 확인
-            if nx + w[x] <= c[i] or c[i] + w[i] <= nx: continue  # 겹치는지 확인
+            if visited[i] == True or nk[i] <= 0: continue
+            if ny[x] + h[x] < r[i] or r[i] + h[i] < ny[x]: continue  # 겹치는지 확인
+            if nx[x] + w[x] < c[i] or c[i] + w[i] < nx[x]: continue  # 겹치는지 확인
 
             visited[i] = True
             queue.append(i)
 
-    return True, r[:], c[:], k[:]
+    return True, ny, nx, nk
 
 for _ in range(Q):
     visited = [False for _ in range(N)]
     index, dir = map(int, sys.stdin.readline().split())
-    isTrue, nr, nc, nk = moveKnight(index - 1, dir)
+    isTrue, ny, nx, nk = moveKnight(index - 1, dir)
+    # print(isTrue, ny, nx, nk)
 
     if isTrue:
-        r = nr
-        c = nc
+        r = ny
+        c = nx
         k = nk
 
 answer = 0
+for i in range(N):
+    if k[i] > 0:
+        answer += (originalK[i] - k[i])
+print(answer)
