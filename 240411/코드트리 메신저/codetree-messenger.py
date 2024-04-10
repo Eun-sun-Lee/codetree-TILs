@@ -6,9 +6,9 @@ powerOff = []
 
 #100
 def init():
-    parent = l[0:8]
+    parent = l[0:N]
     parent.insert(0, 0)
-    authority = l[8:]
+    authority = l[N:]
     authority.insert(0, 0)
     return parent, authority
 
@@ -25,8 +25,6 @@ def changeAuthority(idx, power):
 
 #400
 def changeParent(idx1, idx2):
-    if idx1 == 8:
-        print(parent)
     parent[idx1], parent[idx2] = parent[idx2], parent[idx1]
     # tmp = parent[idx1]
     
