@@ -25,12 +25,12 @@ def changeAuthority(idx, power):
 
 #400
 def changeParent(idx1, idx2):
-    parent[idx1], parent[idx2] = parent[idx2], parent[idx1]
+    # parent[idx1], parent[idx2] = parent[idx2], parent[idx1]
     # authority[idx1], authority[idx2] = authority[idx2], authority[idx1]
-    # tmp = parent[idx1]
+    tmp = parent[idx1]
     
-    # parent[idx1] = parent[idx2]
-    # parent[idx2] = tmp
+    parent[idx1] = parent[idx2]
+    parent[idx2] = tmp
 
 #500
 def receiveAlram(idx, height):
