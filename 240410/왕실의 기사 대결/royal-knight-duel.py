@@ -2,8 +2,8 @@ import sys
 import copy
 from collections import deque
 
-dy = [-1,0,1,0]
-dx = [0,1,0,-1]
+dy = [-1, 0, 1, 0]
+dx = [0, 1, 0, -1]
 
 L, N, Q = map(int, sys.stdin.readline().split())
 
@@ -25,7 +25,7 @@ for i in range(N):
     c[i] -= 1
 
 originalK = copy.deepcopy(k)
-    
+
 def moveKnight(index, dir):
     queue = deque()
     queue.append(index)
@@ -37,25 +37,23 @@ def moveKnight(index, dir):
 
     while queue:
         x = queue.popleft()
-        # visited[x] = True
 
         ny[x] += dy[dir]
-        nx[x] += dx[dir] 
-        # print("curr: ", x, ny[x], nx[x])
+        nx[x] += dx[dir]
+
         for i in range(ny[x], ny[x] + h[x]):
             for j in range(nx[x], nx[x] + w[x]):
-                # print("i, j", i, j)
-                if 0 > i or 0 > j or i >= L or j >= L : return False, ny, nx, nk # 체스판 밖 -> 벽
-                
-                if graph[i][j] == 2: return False, ny, nx, nk  # 벽 
-                elif graph[i][j] == 1 and x!= index: nk[x] -= 1 # 함정 
+                if 0 > i or 0 > j or i >= L or j >= L: return False, ny, nx, nk  # 체스판 밖 -> 벽
+
+                if graph[i][j] == 2: return False, ny, nx, nk  # 벽
+                elif graph[i][j] == 1 and x != index: nk[x] -= 1  # 함정
         for i in range(N):
             if visited[i] == True or nk[i] <= 0: continue
-            if ny[x] + h[x] < r[i] or r[i] + h[i] < ny[x]: continue # 겹치는지 확인 
-            if nx[x] + w[x] < c[i] or c[i] + w[i] < nx[x]: continue # 겹치는지 확인
+            if ny[x] + h[x] < r[i] or r[i] + h[i] < ny[x]: continue  # 겹치는지 확인
+            if nx[x] + w[x] < c[i] or c[i] + w[i] < nx[x]: continue  # 겹치는지 확인
 
             visited[i] = True
-            queue.append(i) 
+            queue.append(i)
     return True, ny, nx, nk
 
 for _ in range(Q):
@@ -63,14 +61,11 @@ for _ in range(Q):
     index, dir = map(int, sys.stdin.readline().split())
     isTrue, ny, nx, nk = moveKnight(index - 1, dir)
     # print(isTrue, ny, nx, nk)
-    
+
     if isTrue:
         r = ny
         c = nx
         k = nk
-# print(r)
-# print(c)
-# print(k)
 
 answer = 0
 for i in range(N):
