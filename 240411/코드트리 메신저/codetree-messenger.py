@@ -26,6 +26,7 @@ def changeAuthority(idx, power):
 #400
 def changeParent(idx1, idx2):
     parent[idx1], parent[idx2] = parent[idx2], parent[idx1]
+    print(parent)
     # tmp = parent[idx1]
     
     # parent[idx1] = parent[idx2]
@@ -59,7 +60,7 @@ for _ in range(Q):
     elif comm == 300:
         changeAuthority(l[0], l[1])
     elif comm == 400:
-        changeParent(l[0], l[1])
+        changeParent(7, 8)
     elif comm == 500:
         height = 1
         alarm = receiveAlram(l[0], height)
