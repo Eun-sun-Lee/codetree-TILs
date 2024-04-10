@@ -25,7 +25,7 @@ def changeAuthority(idx, power):
 
 #400
 def changeParent(idx1, idx2):
-    parent[idx1], parent[idx2] = parent[idx2], parnet[idx1]
+    parent[idx1], parent[idx2] = parent[idx2], parent[idx1]
     # tmp = parent[idx1]
     
     # parent[idx1] = parent[idx2]
