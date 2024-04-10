@@ -25,8 +25,9 @@ def changeAuthority(idx, power):
 
 #400
 def changeParent(idx1, idx2):
+    if idx1 == 8:
+        print(parent)
     parent[idx1], parent[idx2] = parent[idx2], parent[idx1]
-    print(parent)
     # tmp = parent[idx1]
     
     # parent[idx1] = parent[idx2]
