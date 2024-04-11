@@ -3,6 +3,7 @@ import math
 N, Q = map(int, sys.stdin.readline().split())
 
 powerOff = []
+memo = [-1 for _ in range(N + 1)]
 
 #100
 def init():
@@ -16,36 +17,40 @@ def init():
 def power(idx):
     if idx in powerOff:
         powerOff.remove(idx)
+        memo[0] = -1
         return
     powerOff.append(idx)
+    memo[0] = -1
 
 #300
 def changeAuthority(idx, power):
     authority[idx] = power
+    memo[0] = -1
 
 #400
 def changeParent(idx1, idx2):
     parent[idx1], parent[idx2] = parent[idx2], parent[idx1]
+    memo[0] = -1
     # authority[idx1], authority[idx2] = authority[idx2], authority[idx1]
 
 #500
 def receiveAlram(idx, height):
-    count = 0
     
     # if N == 10 and Q == 10:
     #     print(parent, authority)
+    if memo[0] != -1 and memo[idx] != -1: return memo[idx]
+    else : memo[idx] = -1
 
     for i in range(1, len(parent)):
         # if N == 10 and Q == 10:
         #         print(i, authority[i], height)
         if parent[i] == idx and i not in powerOff:
-            # if N == 10 and Q == 10:
-            #     print(i, authority[i], height)
             if height <= authority[i]:
-                count += receiveAlram(i, height + 1) + 1
+                memo[idx] += receiveAlram(i, height + 1) + 1
             else:
-                count += receiveAlram(i, height + 1) 
-    return count
+                memo[idx] += receiveAlram(i, height + 1) 
+    memo[0] = 0
+    return memo[idx] + 1
 
 def pathCompression(i):
     while pt[i] != i:
