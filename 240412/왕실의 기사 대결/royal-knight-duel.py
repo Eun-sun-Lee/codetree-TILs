@@ -65,9 +65,6 @@ for _ in range(Q):
     isTrue, ny, nx, nk = moveKnight(index - 1, dir)
 
     if isTrue:
-        # r = copy.deepcopy(nyy)
-        # c = copy.deepcopy(nxx)
-        # k = copy.deepcopy(nkk)
         r = ny
         c = nx
         k = nk
